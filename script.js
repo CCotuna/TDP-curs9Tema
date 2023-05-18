@@ -2,51 +2,87 @@ let addButton;
 let randomButton;
 let sortButton;
 let pipes = [];
+let inputValue;
 
-function setup(){
-    createCanvas(500,500);
-    background('purple');
+function setup() {
+  createCanvas(1000, 600);
+  background("purple");
 
-    addButton = createButton('Add');
-    addButton.position(20,20);
-    
-    randomButton = createButton('Random');
-    randomButton.position(20,50);
-    
-    sortButton = createButton('Sort Pipes');
-    sortButton.position(20,80);
-    addButton.mousePressed(addPipes);
+  addButton = createButton("Add");
+  addButton.position(220, 20);
+
+  randomButton = createButton("Random");
+  randomButton.position(270, 20);
+  randomButton.mousePressed(randomPipes);
+
+  sortButton = createButton("Sort Pipes");
+  sortButton.position(350, 20);
+  addButton.mousePressed(addPipes);
+
+  inputValue = createInput();
+  inputValue.position(30, 20);
 }
 
-
-function draw(){
-    
+function draw() {
+  displayPipe();
 }
 
 class Pipe {
-    constructor(x, y, width, height, color){
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.color = color;
-    }
+  constructor(x, y, width, height, color) {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    this.color = color;
+  }
 
-    display(){
-        fill(this.color);
-        rect(this.x, this.y, this.width, this.height);
-    }
+  display() {
+    fill(this.color);
+    rect(this.x, this.y, this.width, this.height);
+  }
 }
 
-function addPipes(){
-    let x = 50;
-    const pipe = new Pipe(x + (pipes.length * 20), 50, 10, 50, '#D4ADFC');
+let pipeRow = 0;
+let pipeX = 50;
+
+function addPipes() {
+  let numberOfPipes = inputValue.value();
+
+  for (let i = 0; i < numberOfPipes; i++) {
+    const pipeY = 50 + pipeRow;
+    const pipe = new Pipe(pipeX, pipeY, 10, 50, "#D4ADFC");
     pipes.push(pipe);
-    pipe.display();   
+
+    if (pipeX + 30 <= width - 50) {
+      pipeX += 20;
+    } else {
+      pipeX = 50;
+      pipeRow += 70;
+    }
+  }
 }
 
-function displayPipe(){
-for(let i = 0; i<pipes.length; i++){
-    pipes[i].display();
+function randomPipes() {
+  let numberOfPipes = Math.floor(random(1, 200));
+
+  for (let i = 0; i < numberOfPipes; i++) {
+    const pipeY = 50 + pipeRow;
+    const pipe = new Pipe(pipeX, pipeY, 10, 50, "#D4ADFC");
+    pipes.push(pipe);
+
+    if (pipeX + 30 <= width - 50) {
+      pipeX += 20;
+    } else {
+      pipeX = 50;
+      pipeRow += 70;
+    }
+  }
+
+  pipes.clear();
 }
+
+function displayPipe() {
+  for (let i = 0; i < pipes.length; i++) {
+    pipes[i].display();
+  }
 }

@@ -1,0 +1,6 @@
+.button {
+    background: radial-gradient(100% 72.96% at 0% 50%, #6A1BBA 0%, rgba(122, 77, 167, 0.0697918) 0.01%, #A75FEF 100%);
+    border-radius: 2rem;
+    border-style:none;
+    padding: 2px 1rem 2px 1rem;
+}

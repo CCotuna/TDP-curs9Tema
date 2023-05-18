@@ -3,6 +3,7 @@ let randomButton;
 let sortButton;
 let pipes = [];
 let inputValue;
+let clearCanvas;
 
 function setup() {
   createCanvas(1000, 600);
@@ -10,6 +11,7 @@ function setup() {
 
   addButton = createButton("Add");
   addButton.position(220, 20);
+  addButton.mousePressed(addPipes);
 
   randomButton = createButton("Random");
   randomButton.position(270, 20);
@@ -17,10 +19,14 @@ function setup() {
 
   sortButton = createButton("Sort Pipes");
   sortButton.position(350, 20);
-  addButton.mousePressed(addPipes);
+  sortButton.mousePressed(sortPipes);
 
   inputValue = createInput();
   inputValue.position(30, 20);
+
+  clearCanvas = createButton('Clear Canvas');
+  clearCanvas.position(440, 20);
+  clearCanvas.mousePressed(clearPipes);
 }
 
 function draw() {
@@ -47,10 +53,12 @@ let pipeX = 50;
 
 function addPipes() {
   let numberOfPipes = inputValue.value();
+  
 
   for (let i = 0; i < numberOfPipes; i++) {
+    let randomHeight = Math.floor(random(5, 65));
     const pipeY = 50 + pipeRow;
-    const pipe = new Pipe(pipeX, pipeY, 10, 50, "#D4ADFC");
+    const pipe = new Pipe(pipeX, pipeY, 10, randomHeight, "#D4ADFC");
     pipes.push(pipe);
 
     if (pipeX + 30 <= width - 50) {
@@ -66,8 +74,9 @@ function randomPipes() {
   let numberOfPipes = Math.floor(random(1, 200));
 
   for (let i = 0; i < numberOfPipes; i++) {
+    let randomHeight = Math.floor(random(5, 65));
     const pipeY = 50 + pipeRow;
-    const pipe = new Pipe(pipeX, pipeY, 10, 50, "#D4ADFC");
+    const pipe = new Pipe(pipeX, pipeY, 10, randomHeight, "#D4ADFC");
     pipes.push(pipe);
 
     if (pipeX + 30 <= width - 50) {
@@ -77,8 +86,6 @@ function randomPipes() {
       pipeRow += 70;
     }
   }
-
-  pipes.clear();
 }
 
 function displayPipe() {
@@ -86,3 +93,16 @@ function displayPipe() {
     pipes[i].display();
   }
 }
+
+function clearPipes(){
+    clear();
+    pipes.splice(0, pipes.length);
+    background('purple');
+    pipeX = 50;
+    pipeRow = 0;
+}
+
+function sortPipes() {
+    pipes.sort((a, b) => b.height - a.height);
+    displayPipe();
+  }

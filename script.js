@@ -105,7 +105,7 @@ function clearPipes(){
 function sortPipes() {
     clear();
     background('purple');
-    pipes.sort((a, b) => b.height - a.height);
+    pipes.sort((a, b) => a.height - b.height);
     
     for (let i = 0; i < pipes.length; i++) {
         pipes[i].display();

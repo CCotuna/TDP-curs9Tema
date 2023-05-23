@@ -11,21 +11,25 @@ function setup() {
 
   addButton = createButton("Add");
   addButton.position(220, 20);
-  addButton.mousePressed(addPipes);
+  
 
   randomButton = createButton("Random");
   randomButton.position(270, 20);
-  randomButton.mousePressed(randomPipes);
 
   sortButton = createButton("Sort Pipes");
   sortButton.position(350, 20);
-  sortButton.mousePressed(sortPipes);
+
 
   inputValue = createInput();
   inputValue.position(30, 20);
 
   clearCanvas = createButton('Clear Canvas');
   clearCanvas.position(440, 20);
+  
+
+  addButton.mousePressed(addPipes);
+  randomButton.mousePressed(randomPipes);
+  sortButton.mousePressed(sortPipes);
   clearCanvas.mousePressed(clearPipes);
 }
 
@@ -57,7 +61,7 @@ function addPipes() {
 
   for (let i = 0; i < numberOfPipes; i++) {
     let randomHeight = Math.floor(random(5, 50));
-    const pipeY = 80 + pipeRow;
+    const pipeY = 100 + pipeRow;
     const pipe = new Pipe(pipeX, pipeY, 10, randomHeight, "#D4ADFC");
     pipes.push(pipe);
 
@@ -75,7 +79,7 @@ function randomPipes() {
 
   for (let i = 0; i < numberOfPipes; i++) {
     let randomHeight = Math.floor(random(5, 65));
-    const pipeY = 80 + pipeRow;
+    const pipeY = 100 + pipeRow;
     const pipe = new Pipe(pipeX, pipeY, 10, randomHeight, "#D4ADFC");
     pipes.push(pipe);
 
@@ -103,13 +107,27 @@ function clearPipes(){
 }
 
 function sortPipes() {
-    clear();
-    background('purple');
-    pipes.sort((a, b) => a.height - b.height);
     
-    for (let i = 0; i < pipes.length; i++) {
-      pipes[i].display();
+  pipes.sort((a, b) => a.height - b.height);
+
+  clear();
+  background('purple');
+
+  let pipeRow = 0;
+  let pipeX = 50;
+
+  for (let i = 0; i < pipes.length; i++) {
+    pipes[i].x = pipeX;
+    pipes[i].y = 100 + pipeRow;
+    pipes[i].display();
+
+    if (pipeX + 30 <= width - 50) {
+      pipeX += 20;
+    } else {
+      pipeX = 50;
+      pipeRow += 100;
     }
+  }
     console.log('1');
     console.log(pipes);
   }

@@ -44,7 +44,7 @@ class Pipe {
 
   display() {
     fill(this.color);
-    rect(this.x, this.y, this.width, this.height);
+    rect(this.x, this.y - this.height, this.width, this.height);
   }
 }
 
@@ -56,8 +56,8 @@ function addPipes() {
   
 
   for (let i = 0; i < numberOfPipes; i++) {
-    let randomHeight = Math.floor(random(5, 65));
-    const pipeY = 50 + pipeRow;
+    let randomHeight = Math.floor(random(5, 50));
+    const pipeY = 80 + pipeRow;
     const pipe = new Pipe(pipeX, pipeY, 10, randomHeight, "#D4ADFC");
     pipes.push(pipe);
 
@@ -65,7 +65,7 @@ function addPipes() {
       pipeX += 20;
     } else {
       pipeX = 50;
-      pipeRow += 70;
+      pipeRow += 80;
     }
   }
 }
@@ -75,7 +75,7 @@ function randomPipes() {
 
   for (let i = 0; i < numberOfPipes; i++) {
     let randomHeight = Math.floor(random(5, 65));
-    const pipeY = 50 + pipeRow;
+    const pipeY = 80 + pipeRow;
     const pipe = new Pipe(pipeX, pipeY, 10, randomHeight, "#D4ADFC");
     pipes.push(pipe);
 
@@ -83,7 +83,7 @@ function randomPipes() {
       pipeX += 20;
     } else {
       pipeX = 50;
-      pipeRow += 70;
+      pipeRow += 80;
     }
   }
 }
@@ -108,8 +108,8 @@ function sortPipes() {
     pipes.sort((a, b) => a.height - b.height);
     
     for (let i = 0; i < pipes.length; i++) {
-        pipes[i].display();
-      }
+      pipes[i].display();
+    }
     console.log('1');
     console.log(pipes);
   }
